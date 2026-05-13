@@ -6,10 +6,6 @@ export interface JwtPayload {
   role?: string;
   iat?: number;
   exp?: number;
-  body?: any;
-  params?: any;
-  query?: any;
-  headers?: any;
 }
 
 export interface AuthRequest extends Request {
@@ -21,4 +17,12 @@ export interface AuthRequest extends Request {
   message?: any;
   file?: any;
   dm?: any;
+  userId?: string;
+  workspaceId?: string;
+
+  // 追加するプロパティ（すべて any で OK）
+  body?: any;
+  params?: any;
+  query?: any;
+  headers?: any;
 }
