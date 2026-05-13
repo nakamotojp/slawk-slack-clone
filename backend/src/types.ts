@@ -6,6 +6,10 @@ export interface JwtPayload {
   role?: string;
   iat?: number;
   exp?: number;
+  body?: any;
+  params?: any;
+  query?: any;
+  headers?: any;
 }
 
 export interface AuthRequest extends Request {
