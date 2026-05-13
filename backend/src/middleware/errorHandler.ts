@@ -3,7 +3,7 @@ import multer from 'multer';
 import { ZodError } from 'zod';
 
 export function errorHandler(
-  err: Error,
+  err: any,
   req: Request,
   res: Response,
   next: NextFunction
