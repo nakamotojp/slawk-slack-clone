@@ -11,7 +11,9 @@
     "rootDir": "./src",
     "resolveJsonModule": true,
     "declaration": false,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "noEmitOnError": false
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "src/tests"]
