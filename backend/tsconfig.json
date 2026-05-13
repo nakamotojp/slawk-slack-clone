@@ -13,7 +13,9 @@
     "declaration": false,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "noEmitOnError": false
+    "noEmitOnError": false,
+    "strict": false,
+    "noImplicitAny": false
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "src/tests"]
