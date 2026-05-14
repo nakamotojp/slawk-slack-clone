@@ -62,4 +62,8 @@ export default defineConfig({
       '/socket.io': { target: 'http://localhost:3000', changeOrigin: true, ws: true },
     },
   },
+  // ここを追加
+  preview: {
+    allowedHosts: ['slawk-slack-clone.onrender.com'],
+  },
 })
