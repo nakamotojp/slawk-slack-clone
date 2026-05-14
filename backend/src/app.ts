@@ -38,7 +38,7 @@ app.use(helmet({
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       'img-src': ["'self'", 'blob:', ...(process.env.NODE_ENV !== 'production' ? ['https://randomuser.me'] : []), ...(process.env.GCS_BUCKET_NAME ? [`https://storage.googleapis.com/${process.env.GCS_BUCKET_NAME}`] : [])],
-      'connect-src': ["'self'", 'wss:', 'ws:'],
+      'connect-src': ["'self'", 'wss:', 'ws:', 'https://slawk-family-slack.onrender.com',],
       'media-src': ["'self'", 'blob:', ...(process.env.GCS_BUCKET_NAME ? [`https://storage.googleapis.com/${process.env.GCS_BUCKET_NAME}`] : [])],
     },
   },
