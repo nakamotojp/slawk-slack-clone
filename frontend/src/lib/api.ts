@@ -118,7 +118,8 @@ async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
     ? endpoint
     : `${API_BASE}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
 
-  const res = await fetch(endpoint, {
+  // const res = await fetch(endpoint, {
+  const res = await fetch(url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
