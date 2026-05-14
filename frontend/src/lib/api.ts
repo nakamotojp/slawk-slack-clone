@@ -2,6 +2,11 @@
  * Manages a short-lived download token for file URLs.
  * Uses a scoped JWT (5min expiry) instead of the full auth token to limit exposure.
  */
+
+// api.ts の先頭付近に追加
+const API_BASE =  import.meta.env.VITE_API_URL?.replace(/\/$/, '') || '';  // 末尾の / を削除しておく
+
+
 let _downloadToken: string | null = null;
 let _downloadTokenExpires = 0;
 
@@ -13,7 +18,9 @@ export async function refreshDownloadToken(): Promise<string | null> {
   if (!authToken) return null;
 
   try {
-    const res = await fetch('/files/download-token', {
+    // const res = await fetch('/files/download-token', {
+      const res = await fetch(`${API_BASE}/files/download-token`, {
+
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -58,7 +65,8 @@ export function getAuthFileUrl(url: string, { download = false }: { download?: b
   if (!url) return url;
   // Only append token to our own download endpoints, not external URLs (GCS signed URLs)
   if (url.startsWith('/files/') && url.includes('/download')) {
-    let result = url;
+    // let result = url;
+    let result = `${API_BASE}${url}`; // ここでベースURLを付ける
     if (download) {
       const sep1 = result.includes('?') ? '&' : '?';
       result = `${result}${sep1}dl=1`;
@@ -104,6 +112,11 @@ class ApiError extends Error {
 
 async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const token = localStorage.getItem('token');
+
+  // endpoint が絶対 URL ならそのまま、それ以外は API_BASE を前に付ける
+  const url = endpoint.startsWith('http')
+    ? endpoint
+    : `${API_BASE}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
 
   const res = await fetch(endpoint, {
     ...options,
@@ -418,7 +431,7 @@ export async function uploadFile(file: File): Promise<ApiFile> {
   const formData = new FormData();
   formData.append('file', file);
 
-  const res = await fetch('/files', {
+  const res = await fetch(`${API_BASE}/files`, {
     method: 'POST',
     headers: {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -472,7 +485,7 @@ export async function uploadAvatar(file: Blob): Promise<UserProfile> {
   const formData = new FormData();
   formData.append('avatar', file);
 
-  const res = await fetch('/users/me/avatar', {
+  const res = await fetch(`${API_BASE}/users/me/avatar`, {
     method: 'POST',
     headers: {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
