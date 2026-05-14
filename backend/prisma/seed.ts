@@ -29,8 +29,8 @@ const USERS = [
     avatar: '/avatars/bob.jpg',
   },
   {
-    name: 'k-nakamoto',
-    email: 'k-nakamoto@asimatch.com',
+    name: 'test5',
+    email: 'test5@gmail.com',
     password: SEED_PASSWORD,
     bio: 'Product designer • she/her • obsessed with design systems and user delight',
     status: 'offline',
